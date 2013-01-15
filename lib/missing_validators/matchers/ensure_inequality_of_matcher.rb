@@ -6,8 +6,8 @@ RSpec::Matchers.define :ensure_inequality_of do |attribute|
   match do |model|
     raise Exception if @to.nil?
 
-    model.send("#{attribute}=", :value)
-    model.send("#{@to}=", :value)
+    value = model.send(attribute)
+    model.send("#{@to}=", value)
     model.valid?
 
     if model.errors.has_key?(attribute)
