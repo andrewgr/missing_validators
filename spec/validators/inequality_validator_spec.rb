@@ -1,40 +1,20 @@
 require 'spec_helper'
 
 describe InequalityValidator do
-  class FlightBase
+  class Flight
     include ActiveModel::Validations
     attr_accessor :origin, :destination, :airline
+    validates :origin, inequality: { to: :destination }
   end
-=begin
-  context "" do
-    class Flight1 < FlightBase
-      validates :origin, inequality: { to: :non_existing_attribute }
-    end
 
-    let(:flight){ Flight1.new }
+  context do
+    subject(:flight){ Flight.new }
 
-    specify { flight.should ensure_inequality_of(:origin).to(:non_existing_attribute) }
-
-    specify "fields have different values" do
-      flight.origin = "MOW"
-      flight.destination = "NYC"
-      expect(-> {flight.valid?}).to raise_error(NoMethodError)
-    end
-  end
-=end
-  context "" do
-    class Flight < FlightBase
-      validates :origin, inequality: { to: :destination }
-    end
-
-    let(:flight){ Flight.new }
-
-    specify { flight.should ensure_inequality_of(:origin).to(:destination) }
-    specify { flight.should_not ensure_inequality_of(:origin).to(:airline) }
+    it { should ensure_inequality_of(:origin).to(:destination) }
+    it { should_not ensure_inequality_of(:origin).to(:airline) }
 
     specify "both fields have same values" do
-      flight.origin = "MOW"
-      flight.destination = "MOW"
+      flight.origin = flight.destination = "MOW"
       expect(flight).to be_invalid
     end
 
@@ -57,10 +37,8 @@ describe InequalityValidator do
     end
 
     specify "both fields are nil" do
-      flight.origin = nil
-      flight.destination = nil
+      flight.origin = flight.destination = nil
       expect(flight).to be_invalid
     end
   end
 end
-

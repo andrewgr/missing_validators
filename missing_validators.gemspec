@@ -15,11 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = MissingValidators::VERSION
 
-  gem.add_development_dependency 'sqlite3' # For the dummy application
-  gem.add_development_dependency 'rspec-rails'
-  gem.add_development_dependency 'fabrication'
-  gem.add_development_dependency 'mongoid-rspec'
+  gem.add_development_dependency 'rspec'
 
-  gem.add_dependency 'rails', '~> 3.2.11'
-  gem.add_dependency 'shoulda-matchers', '~> 1.4.0'
+  gem.add_dependency 'activemodel', '> 3.0.0'
 end
