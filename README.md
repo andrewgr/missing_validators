@@ -1,6 +1,6 @@
 # MissingValidators
 
-TODO: Write a gem description
+MissingValidators is a collection of custom validators that are often required in Rails applications plus shoulda-style RSpec matchers to test the validation rules.
 
 ## Installation
 
@@ -18,9 +18,55 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### EmailValidator
+
+With an ActiveRecord model:
+
+    class User < ActiveRecord::Base
+      attr_accessor :email, :name
+      validates :email, email: true
+    end
+
+Or any ruby class:
+
+    class User
+      include ActiveModel::Validations
+      attr_accessor :email, :name
+      validates :email, email: true
+    end
+
+RSpec matcher is also available for your convenience:
+
+    describe User do
+      it { should ensure_valid_email_format_of(:email) }
+    end
+
+### InequalityValidator
+
+With an ActiveRecord model:
+
+    class Flight < ActiveRecord::Base
+      attr_accessor :origin, :destination
+      validates :origin, inequality: { to: :destination }
+    end
+
+Or any ruby class:
+
+    class Flight
+      include ActiveModel::Validations
+      attr_accessor :origin, :destination
+      validates :origin, inequality: { to: :destination }
+    end
+
+RSpec matcher is also available for your convenience:
+
+    describe Flight do
+      it { should ensure_inequality_of(:origin).to(:destination) }
+    end
 
 ## Contributing
+
+Your contribution is welcome.
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
