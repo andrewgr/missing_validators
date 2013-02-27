@@ -1,31 +1,33 @@
 require 'spec_helper'
 
 describe EmailValidator do
-  class User
-    include ActiveModel::Validations
-    attr_accessor :email, :name
-    validates :email, email: true
+  let(:klass) do
+    Class.new do
+      include ActiveModel::Validations
+      attr_accessor :email, :name
+      validates :email, email: true
+    end
   end
 
   context do
-    subject(:user){ User.new }
+    subject(:model){ klass.new }
 
     it { should ensure_valid_email_format_of(:email) }
     it { should_not ensure_valid_email_format_of(:name) }
 
     specify "is valid with a valid email address" do
-      user.email = "super.user@example.com"
-      expect(user).to be_valid
+      model.email = "super.user@example.com"
+      expect(model).to be_valid
     end
 
     specify "is valid with a valid email address" do
-      user.email = "user@example.com"
-      expect(user).to be_valid
+      model.email = "user@example.com"
+      expect(model).to be_valid
     end
 
     specify "fields have different value" do
-      user.email = "user_example.com"
-      expect(user).to be_invalid
+      model.email = "user_example.com"
+      expect(model).to be_invalid
     end
   end
 end
