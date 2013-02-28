@@ -41,9 +41,4 @@ describe InequalityValidator do
     model.origin = model.destination = nil
     expect(model).to be_invalid
   end
-
-  specify "both fields are now" do
-    model.origin = model.destination = DateTime.now
-    expect(model).to be_invalid
-  end
 end

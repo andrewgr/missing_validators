@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = MissingValidators::VERSION
 
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'shoulda-matchers'
 
   gem.add_dependency 'activemodel', '> 3.0.0'
 end
