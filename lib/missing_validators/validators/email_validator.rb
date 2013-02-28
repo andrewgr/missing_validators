@@ -21,6 +21,7 @@ class EmailValidator < ActiveModel::EachValidator
     if !allow_blank && !value
       message = options[:message] || I18n.t('errors.messages.email')
       record.errors[attribute] << message
+      return
     end
 
     valid_domain = true
