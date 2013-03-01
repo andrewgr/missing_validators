@@ -1,18 +1,7 @@
 require 'spec_helper'
 
 describe EmailValidator do
-  let(:klass) do
-    Class.new do
-      include ActiveModel::Validations
-      attr_accessor :email, :name
-      validates :email, email: true
-    end
-  end
-
   subject(:model){ klass.new }
-
-  it { should ensure_valid_email_format_of(:email) }
-  it { should_not ensure_valid_email_format_of(:name) }
 
   context "email has valid format" do
     let(:klass) do
@@ -24,7 +13,12 @@ describe EmailValidator do
     end
 
     it { should allow_value("super.user@example.com").for(:email) }
+    it { should allow_value("super+user@example.com").for(:email) }
     it { should_not allow_value("user_example.com").for(:email) }
+
+
+    it { should ensure_valid_email_format_of(:email) }
+    it { should_not ensure_valid_email_format_of(:name) }
   end
 
   context "email is in a specific domain" do
