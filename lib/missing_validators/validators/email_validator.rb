@@ -10,7 +10,7 @@ class EmailValidator < ActiveModel::EachValidator
   #
   # @param [Object] record object to validate
   # @param [String] attribute name of the object attribute to validate
-  # @param [Object] attribute attribute value
+  # @param [Object] value attribute value
   def validate_each(record, attribute, value)
     domains = Array.wrap options[:domain]
 
