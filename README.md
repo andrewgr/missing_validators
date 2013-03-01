@@ -50,6 +50,29 @@ RSpec matcher is also available for your convenience:
       it { should ensure_valid_email_format_of(:email) }
     end
 
+### UrlValidator
+
+With an ActiveRecord model:
+
+    class User < ActiveRecord::Base
+      attr_accessor :blog, :name
+      validates :blog, url: true
+    end
+
+Or any ruby class:
+
+    class User
+      include ActiveModel::Validations
+      attr_accessor :blog, :name
+      validates :blog, url: true
+    end
+
+RSpec matcher is also available for your convenience:
+
+    describe User do
+      it { should ensure_valid_url_format_of(:url) }
+    end
+
 ### InequalityValidator
 
 With an ActiveRecord model:
