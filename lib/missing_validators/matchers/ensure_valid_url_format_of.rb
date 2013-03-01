@@ -1,6 +1,6 @@
 RSpec::Matchers.define :ensure_valid_url_format_of do |attribute|
   match do |model|
-    model.send("#{attribute}=", "invalidurl")
+    model.send("#{attribute}=", ".")
     model.valid?
 
     if model.errors.has_key?(attribute)

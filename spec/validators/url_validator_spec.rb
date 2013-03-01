@@ -14,10 +14,10 @@ describe UrlValidator do
   it { should ensure_valid_url_format_of(:url) }
   it { should_not ensure_valid_url_format_of(:name) }
 
-  it { should allow_value("example.com").for(:url) }
-  it { should allow_value("FooBar.cOm").for(:url) }
-  it { should allow_value("foo.bar.baz.com").for(:url) }
-  it { should allow_value("123.com").for(:url) }
+  it { should allow_value("http://example.com").for(:url) }
+  it { should allow_value("http://FooBar.cOm").for(:url) }
+  it { should allow_value("http://foo.bar.baz.com").for(:url) }
+  it { should allow_value("http://123.com").for(:url) }
   it { should allow_value("http://www.example.ru").for(:url) }
   it { should allow_value("http://user-example.co.uk").for(:url) }
   it { should allow_value("https://example.com").for(:url) }
@@ -26,9 +26,10 @@ describe UrlValidator do
   it { should allow_value("http://example.net/login.php").for(:url) }
   it { should allow_value("https://example.travel/").for(:url) }
   it { should allow_value("http://example.aero").for(:url) }
+  it { should allow_value("http://example.aero?foo=bar").for(:url) }
 
+  it { should_not allow_value("example").for(:url) }
   it { should_not allow_value("http://user_examplecom").for(:url) }
   it { should_not allow_value("http://user_example.com").for(:url) }
-  it { should_not allow_value("http://a.com").for(:url) }
   it { should_not allow_value("http://user_example.a").for(:url) }
 end
