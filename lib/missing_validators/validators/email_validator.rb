@@ -16,7 +16,7 @@ class EmailValidator < ActiveModel::EachValidator
     return if allow_blank && value.blank?
 
     domains = Array.wrap(options[:domain])
-    email = value && value.downcase
+    email = value && value.downcase || ''
     in_valid_domain = domains.empty? ? true : domains.any? { |domain| email.end_with?(".#{domain.downcase}") }
 
     has_valid_format = !!(value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)

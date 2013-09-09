@@ -35,38 +35,44 @@ describe UrlValidator do
     it { should_not allow_value("http://user_example.a").for(:url) }
   end
 
-  context "url is in the specified domain" do
-    let(:klass) do
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :url, :name
-        validates :url, url: { domain: :org }
+  context "url is in the specific domain" do
+    context "url specified as symbol" do
+      let(:klass) do
+        Class.new do
+          include ActiveModel::Validations
+          attr_accessor :url, :name
+          validates :url, url: { domain: :org }
+        end
       end
+
+      subject { klass.new }
+
+      it { should ensure_valid_url_format_of(:url) }
+      it { should_not ensure_valid_url_format_of(:name) }
+
+      it { should allow_value("http://example.org").for(:url) }
+      it { should_not allow_value("http://example.com").for(:url) }
     end
 
-    subject { klass.new }
-
-    it { should ensure_valid_url_format_of(:url) }
-    it { should allow_value("http://example.org").for(:url) }
-    it { should_not allow_value("http://example.com").for(:url) }
-  end
-
-  context "email set as an array of strings and symbols" do
-    let(:klass) do
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :url, :name
-        validates :url, url: { domain: [:org, 'edu', 'Com.Au'] }
+    context "url specified as array of strings and symbols" do
+      let(:klass) do
+        Class.new do
+          include ActiveModel::Validations
+          attr_accessor :url, :name
+          validates :url, url: { domain: [:org, 'edu', 'Com.Au'] }
+        end
       end
+
+      subject { klass.new }
+
+      it { should ensure_valid_url_format_of(:url) }
+      it { should_not ensure_valid_url_format_of(:name) }
+
+      it { should allow_value("http://example.org").for(:url) }
+      it { should allow_value("http://example.edu").for(:url) }
+      it { should allow_value("http://example.com.au").for(:url) }
+      it { should allow_value("http://example.Com.Au").for(:url) }
+      it { should_not allow_value("http://example.com").for(:url) }
     end
-
-    subject { klass.new }
-
-    it { should ensure_valid_url_format_of(:url) }
-    it { should allow_value("http://example.org").for(:url) }
-    it { should allow_value("http://example.edu").for(:url) }
-    it { should allow_value("http://example.com.au").for(:url) }
-    it { should allow_value("http://example.Com.Au").for(:url) }
-    it { should_not allow_value("http://example.com").for(:url) }
   end
 end

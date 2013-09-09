@@ -25,20 +25,23 @@ describe EmailValidator do
       let(:klass) do
         Class.new do
           include ActiveModel::Validations
-          attr_accessor :email
+          attr_accessor :email, :name
           validates :email, email: { domain: "edu" }
         end
       end
 
       it { should allow_value("user@example.edu").for(:email) }
       it { should_not allow_value("user@example.com").for(:email) }
+
+      it { should ensure_valid_email_format_of(:email) }
+      it { should_not ensure_valid_email_format_of(:name) }
     end
 
     context "email set as an array of strings and symbols" do
       let(:klass) do
         Class.new do
           include ActiveModel::Validations
-          attr_accessor :email
+          attr_accessor :email, :name
           validates :email, email: { domain: ['com', :edu, 'Com.Au'] }
         end
       end
@@ -48,6 +51,9 @@ describe EmailValidator do
       it { should allow_value("user@example.com.au").for(:email) }
       it { should allow_value("user@example.Com.Au").for(:email) }
       it { should_not allow_value("user@example.org").for(:email) }
+
+      it { should ensure_valid_email_format_of(:email) }
+      it { should_not ensure_valid_email_format_of(:name) }
     end
   end
 end

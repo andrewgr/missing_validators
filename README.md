@@ -67,6 +67,12 @@ Or any ruby class:
       validates :blog, url: true
     end
 
+You can specify domains to which the URL domain should belong in one of the folowing ways:
+
+    validates :url, url: { domains: 'com' }
+    validates :url, url: { domains: :com }
+    validates :url, url: { domains: [:com, 'edu'] }
+
 RSpec matcher is also available for your convenience:
 
     describe User do
