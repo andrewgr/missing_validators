@@ -13,16 +13,14 @@ class UrlValidator < ActiveModel::EachValidator
   # @param [String] attribute name of the object attribute to validate
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
-    begin
-      uri = URI.parse value
-      valid_format = uri.kind_of? URI::HTTP
-    rescue
-      valid_format = false
-    end
+    uri = URI.parse(value)
+    raise URI::InvalidURIError unless uri.kind_of?(URI::HTTP)
 
-    unless valid_format
-      message = options[:message] || I18n.t('errors.messages.url')
-      record.errors[attribute] << message
-    end
+    domains = Array.wrap(options[:domain])
+    host = uri.host.downcase
+    in_valid_domain = domains.empty? || domains.any? { |domain| host.end_with?(".#{domain.downcase}") }
+    raise URI::InvalidURIError unless in_valid_domain
+  rescue URI::InvalidURIError
+    record.errors[attribute] << (options[:message] || I18n.t('errors.messages.url'))
   end
 end
