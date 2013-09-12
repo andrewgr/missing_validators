@@ -4,12 +4,13 @@ require File.expand_path('../lib/missing_validators/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Andrew Gridnev"]
   gem.email         = ["andrew.gridnev@gmail.com"]
-  gem.description   = %q{Adds some handy validators.}
+  gem.description   = %q{Validates email addresses, URLs, and inequality of attributes.}
   gem.summary       = %q{Adds some handy validators.}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/andrewgr/missing_validators/"
+  gem.license = 'MIT'
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "missing_validators"
   gem.require_paths = ["lib"]
