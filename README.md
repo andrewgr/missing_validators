@@ -72,6 +72,7 @@ You can specify domains to which the URL domain should belong in one of the folo
     validates :url, url: { domains: 'com' }
     validates :url, url: { domains: :com }
     validates :url, url: { domains: [:com, 'edu'] }
+    validates :url, url: { root: true }
 
 RSpec matcher is also available for your convenience:
 

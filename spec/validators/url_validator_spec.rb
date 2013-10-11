@@ -75,4 +75,22 @@ describe UrlValidator do
       it { should_not allow_value("http://example.com").for(:url) }
     end
   end
+
+  context "url must be domain root" do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :url, :name
+        validates :url, url: { root: true }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value("http://example.org").for(:url) }
+    it { should allow_value("http://example.org/").for(:url) }
+    it { should_not allow_value("http://example.com/test").for(:url) }
+    it { should_not allow_value("http://example.com/#fragment").for(:url) }
+    it { should_not allow_value("http://example.com/?key=value").for(:url) }
+  end
 end
