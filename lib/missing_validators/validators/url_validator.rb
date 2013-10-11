@@ -22,7 +22,7 @@ class UrlValidator < ActiveModel::EachValidator
     raise URI::InvalidURIError unless in_valid_domain
 
     must_be_domain_root = options[:root] || false
-    if must_be_domain_root && (!uri.path.in?('/', '') || uri.query.present? || uri.fragment.present?)
+    if must_be_domain_root && (!['/', ''].include?(uri.path) || uri.query.present? || uri.fragment.present?)
       raise URI::InvalidURIError
     end
   rescue URI::InvalidURIError
