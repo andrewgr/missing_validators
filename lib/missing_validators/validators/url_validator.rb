@@ -31,12 +31,12 @@ class UrlValidator < ActiveModel::EachValidator
 
   def in_valid_top_level_domains?(uri, tlds)
     host_downcased = uri.host.downcase
-    tlds.empty? || tlds.map(&:downcase).any? { |domain| host_downcased.end_with?(".#{domain}") }
+    tlds.empty? || tlds.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
   end
 
   def with_valid_scheme?(uri, schemes)
     scheme_downcased = uri.scheme.downcase
-    schemes.empty? || schemes.map(&:to_s).map(&:downcase).any? { |scheme| scheme_downcased == scheme }
+    schemes.empty? || schemes.any? { |scheme| scheme_downcased == scheme.to_s.downcase }
   end
 
   def is_root?(uri)
