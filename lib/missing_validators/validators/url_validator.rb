@@ -23,22 +23,23 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid?(uri, options)
     uri.kind_of?(URI::HTTP) \
-      && in_valid_top_level_domains?(uri, Array.wrap(options[:domain])) \
-      && with_valid_scheme?(uri, Array.wrap(options[:scheme])) \
-      && (!!!options[:root] || is_root?(uri))
+      && validate_domain(uri, Array.wrap(options[:domain])) \
+      && validate_scheme(uri, Array.wrap(options[:scheme])) \
+      && validate_root(uri, !!options[:root])
   end
 
-  def in_valid_top_level_domains?(uri, tlds)
+  def validate_domain(uri, domains)
     host_downcased = uri.host && uri.host.downcase
-    tlds.empty? || tlds.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
+    domains.empty? || domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
   end
 
-  def with_valid_scheme?(uri, schemes)
+  def validate_scheme(uri, schemes)
     scheme_downcased = uri.scheme.downcase
     schemes.empty? || schemes.any? { |scheme| scheme_downcased == scheme.to_s.downcase }
   end
 
-  def is_root?(uri)
+  def validate_root(uri, validate)
+    return true unless validate
     ['/', ''].include?(uri.path) && uri.query.blank? && uri.fragment.blank?
   end
 end
