@@ -14,18 +14,32 @@ class UrlValidator < ActiveModel::EachValidator
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
     uri = URI.parse(value)
-    raise URI::InvalidURIError unless uri.kind_of?(URI::HTTP)
 
-    domains = Array.wrap(options[:domain])
-    host = uri.host.downcase
-    in_valid_domain = domains.empty? || domains.any? { |domain| host.end_with?(".#{domain.downcase}") }
-    raise URI::InvalidURIError unless in_valid_domain
+    unless uri.kind_of?(URI::HTTP) \
+      && in_valid_top_level_domains?(uri, Array.wrap(options[:domain])) \
+      && with_valid_scheme?(uri, Array.wrap(options[:scheme])) \
+      && (!!!options[:root] || is_root?(uri))
 
-    must_be_domain_root = options[:root] || false
-    if must_be_domain_root && (!['/', ''].include?(uri.path) || uri.query.present? || uri.fragment.present?)
       raise URI::InvalidURIError
     end
+
   rescue URI::InvalidURIError
     record.errors[attribute] << (options[:message] || I18n.t('errors.messages.url'))
+  end
+
+  private
+
+  def in_valid_top_level_domains?(uri, tlds)
+    host_downcased = uri.host.downcase
+    tlds.empty? || tlds.map(&:downcase).any? { |domain| host_downcased.end_with?(".#{domain}") }
+  end
+
+  def with_valid_scheme?(uri, schemes)
+    scheme_downcased = uri.scheme.downcase
+    schemes.empty? || schemes.map(&:to_s).map(&:downcase).any? { |scheme| scheme_downcased == scheme }
+  end
+
+  def is_root?(uri)
+    ['/', ''].include?(uri.path) && uri.query.blank? && uri.fragment.blank?
   end
 end
