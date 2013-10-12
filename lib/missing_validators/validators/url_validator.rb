@@ -14,23 +14,22 @@ class UrlValidator < ActiveModel::EachValidator
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
     uri = URI.parse(value)
-
-    unless uri.kind_of?(URI::HTTP) \
-      && in_valid_top_level_domains?(uri, Array.wrap(options[:domain])) \
-      && with_valid_scheme?(uri, Array.wrap(options[:scheme])) \
-      && (!!!options[:root] || is_root?(uri))
-
-      raise URI::InvalidURIError
-    end
-
+    raise URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
     record.errors[attribute] << (options[:message] || I18n.t('errors.messages.url'))
   end
 
   private
 
+  def valid?(uri, options)
+    uri.kind_of?(URI::HTTP) \
+      && in_valid_top_level_domains?(uri, Array.wrap(options[:domain])) \
+      && with_valid_scheme?(uri, Array.wrap(options[:scheme])) \
+      && (!!!options[:root] || is_root?(uri))
+  end
+
   def in_valid_top_level_domains?(uri, tlds)
-    host_downcased = uri.host.downcase
+    host_downcased = uri.host && uri.host.downcase
     tlds.empty? || tlds.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
   end
 
