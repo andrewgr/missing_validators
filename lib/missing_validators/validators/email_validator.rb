@@ -15,14 +15,24 @@ class EmailValidator < ActiveModel::EachValidator
     allow_blank = options[:allow_blank] || false
     return if allow_blank && value.blank?
 
-    domains = Array.wrap(options[:domain])
-    email = value && value.downcase || ''
-    in_valid_domain = domains.empty? ? true : domains.any? { |domain| email.end_with?(".#{domain.downcase}") }
-
-    has_valid_format = !!(value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
-
-    unless in_valid_domain && has_valid_format
+    unless valid?(value, options)
       record.errors[attribute] << (options[:message] || I18n.t('errors.messages.email'))
     end
+  end
+
+  private
+
+  def valid?(email, options)
+    validate_format(email) \
+      && validate_domain(email, Array.wrap(options[:domain]))
+  end
+
+  def validate_format(email)
+    !!(email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
+  end
+
+  def validate_domain(email, domains)
+    email_downcased = email.to_s.downcase
+    domains.empty? || domains.any? { |domain| email_downcased.end_with?(".#{domain.downcase}") }
   end
 end
