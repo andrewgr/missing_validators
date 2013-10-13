@@ -33,6 +33,7 @@ describe UrlValidator do
     it { should_not allow_value("http://user_examplecom").for(:url) }
     it { should_not allow_value("http://user_example.com").for(:url) }
     it { should_not allow_value("http://user_example.a").for(:url) }
+    it { should_not allow_value("ftp://foo.bar.baz.com").for(:url) }
   end
 
   describe "url must be in a specific domain" do

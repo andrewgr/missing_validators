@@ -7,6 +7,9 @@ require 'uri'
 #     validates :blog, url: true
 #   end
 class UrlValidator < ActiveModel::EachValidator
+
+  DEFAULT_SCHEMES = [:http, :https]
+
   # Checks if an attribute value is a valid URL.
   #
   # @param [Object] record object to validate
@@ -22,24 +25,24 @@ class UrlValidator < ActiveModel::EachValidator
   private
 
   def valid?(uri, options)
-    uri.kind_of?(URI::HTTP) \
+    uri.kind_of?(URI::Generic) \
       && validate_domain(uri, Array.wrap(options[:domain])) \
-      && validate_scheme(uri, Array.wrap(options[:scheme])) \
+      && validate_scheme(uri, Array.wrap(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)) \
       && validate_root(uri, !!options[:root])
   end
 
   def validate_domain(uri, domains)
-    host_downcased = uri.host && uri.host.downcase
+    host_downcased = uri.host.to_s.downcase
     domains.empty? || domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
   end
 
   def validate_scheme(uri, schemes)
-    scheme_downcased = uri.scheme.downcase
+    scheme_downcased = uri.scheme.to_s.downcase
     schemes.empty? || schemes.any? { |scheme| scheme_downcased == scheme.to_s.downcase }
   end
 
-  def validate_root(uri, validate)
-    return true unless validate
+  def validate_root(uri, should_validate)
+    return true unless should_validate
     ['/', ''].include?(uri.path) && uri.query.blank? && uri.fragment.blank?
   end
 end

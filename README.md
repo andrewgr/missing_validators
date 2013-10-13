@@ -72,7 +72,13 @@ You can specify domains to which the URL domain should belong in one of the folo
     validates :url, url: { domains: 'com' }
     validates :url, url: { domains: :com }
     validates :url, url: { domains: [:com, 'edu'] }
+
+You can specify if the URL should the site root:
+
     validates :url, url: { root: true }
+
+You can specify the URL scheme:
+
     validates :url, url: { scheme: :http }
     validates :url, url: { scheme: [:http, 'https'] }
 
