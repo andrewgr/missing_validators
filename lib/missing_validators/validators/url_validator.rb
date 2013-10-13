@@ -7,9 +7,6 @@ require 'uri'
 #     validates :blog, url: true
 #   end
 class UrlValidator < ActiveModel::EachValidator
-
-  DEFAULT_SCHEMES = [:http, :https]
-
   # Checks if an attribute value is a valid URL.
   #
   # @param [Object] record object to validate
@@ -23,6 +20,8 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   private
+
+  DEFAULT_SCHEMES = [:http, :https]
 
   def valid?(uri, options)
     uri.kind_of?(URI::Generic) \
