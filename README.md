@@ -111,6 +111,38 @@ RSpec matcher is also available for your convenience:
       it { should ensure_inequality_of(:origin).to(:destination) }
     end
 
+### MacAddressValidator
+
+Ensures that MAC address is in one of the following formats:
+
+    '08:00:2b:01:02:03'
+    '08-00-2b-01-02-03'
+    '08002b:010203'
+    '08002b-010203'
+    '0800.2b01.0203'
+    '08002b010203'
+
+With an ActiveRecord model:
+
+    class Device < ActiveRecord::Base
+      attr_accessor :mac
+      validates :mac, mac_address: true
+    end
+
+Or any ruby class:
+
+    class Device
+      include ActiveModel::Validations
+      attr_accessor :mac
+      validates :mac, mac_address: true
+    end
+
+RSpec matcher is also available for your convenience:
+
+    describe Device do
+      it { should ensure_valid_mac_address_format_of }
+    end
+
 ## Contributing
 
 Your contribution is welcome.
