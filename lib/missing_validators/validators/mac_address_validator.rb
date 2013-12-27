@@ -15,18 +15,12 @@ class MacAddressValidator < ActiveModel::EachValidator
     allow_blank = options[:allow_blank] || false
     return if allow_blank && value.blank?
 
-    unless valid?(value, options)
+    unless self.class.valid?(value, options)
       record.errors[attribute] << (options[:message] || I18n.t('errors.messages.mac_address'))
     end
   end
 
-  private
-
-  def valid?(mac_address, options)
-    validate_format(mac_address)
-  end
-
-  def validate_format(mac_address)
+  def self.validate_format(mac_address)
     !!(mac_address =~ /^([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}?$/i) ||    # 08:00:2b:01:02:03
       !!(mac_address =~ /^([A-Fa-f0-9]{2}[-]){5}[A-Fa-f0-9]{2}?$/i) ||  # 08-00-2b-01-02-03
       !!(mac_address =~ /^([A-Fa-f0-9]{6}):[A-Fa-f0-9]{6}?$/i) ||       # 08002b:010203
@@ -34,4 +28,11 @@ class MacAddressValidator < ActiveModel::EachValidator
       !!(mac_address =~ /^([A-Fa-f0-9]{4}[\.]){2}[A-Fa-f0-9]{4}?$/i) || # 0800.2b01.0203
       !!(mac_address =~ /^[A-Fa-f0-9]{12}?$/i)                          # 08002b010203
   end
+
+  private
+
+  def self.valid?(mac_address, options)
+    validate_format(mac_address)
+  end
+
 end

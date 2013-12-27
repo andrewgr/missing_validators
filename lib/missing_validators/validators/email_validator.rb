@@ -20,19 +20,20 @@ class EmailValidator < ActiveModel::EachValidator
     end
   end
 
-  private
-
-  def valid?(email, options)
-    validate_format(email) \
-      && validate_domain(email, Array.wrap(options[:domain]))
-  end
-
-  def validate_format(email)
+  def self.validate_format(email)
     !!(email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
   end
 
-  def validate_domain(email, domains)
+  def self.validate_domain(email, domains)
     email_downcased = email.to_s.downcase
     domains.empty? || domains.any? { |domain| email_downcased.end_with?(".#{domain.downcase}") }
   end
+
+  private
+
+  def valid?(email, options)
+    self.class.validate_format(email) \
+      && self.class.validate_domain(email, Array.wrap(options[:domain]))
+  end
+
 end
