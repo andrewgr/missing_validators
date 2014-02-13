@@ -21,12 +21,12 @@ class MacAddressValidator < ActiveModel::EachValidator
   end
 
   def self.validate_format(mac_address)
-    !!(mac_address =~ /^([A-Fa-f0-9]{2}[:]){5}[A-Fa-f0-9]{2}?$/i) ||    # 08:00:2b:01:02:03
-      !!(mac_address =~ /^([A-Fa-f0-9]{2}[-]){5}[A-Fa-f0-9]{2}?$/i) ||  # 08-00-2b-01-02-03
-      !!(mac_address =~ /^([A-Fa-f0-9]{6}):[A-Fa-f0-9]{6}?$/i) ||       # 08002b:010203
-      !!(mac_address =~ /^([A-Fa-f0-9]{6})-[A-Fa-f0-9]{6}?$/i) ||       # 08002b-010203
-      !!(mac_address =~ /^([A-Fa-f0-9]{4}[\.]){2}[A-Fa-f0-9]{4}?$/i) || # 0800.2b01.0203
-      !!(mac_address =~ /^[A-Fa-f0-9]{12}?$/i)                          # 08002b010203
+    !!(mac_address =~ /^([\h]{2}[:]){5}[\h]{2}?$/i) ||    # 08:00:2b:01:02:03
+      !!(mac_address =~ /^([\h]{2}[-]){5}[\h]{2}?$/i) ||  # 08-00-2b-01-02-03
+      !!(mac_address =~ /^([\h]{6}):[\h]{6}?$/i) ||       # 08002b:010203
+      !!(mac_address =~ /^([\h]{6})-[\h]{6}?$/i) ||       # 08002b-010203
+      !!(mac_address =~ /^([\h]{4}[\.]){2}[\h]{4}?$/i) || # 0800.2b01.0203
+      !!(mac_address =~ /^[\h]{12}?$/i)                          # 08002b010203
   end
 
   private
