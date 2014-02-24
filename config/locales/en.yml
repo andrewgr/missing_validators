@@ -5,6 +5,7 @@ en:
       email: "isn't a valid email address"
       url: "isn't a valid URL"
       mac_address: "isn't a valid MAC address"
+      longitude: "isn't a valid longitude"
   missing_validators:
     matchers:
       ensure_inequality_of:
