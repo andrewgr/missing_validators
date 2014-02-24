@@ -39,8 +39,8 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid?(uri, options)
     uri.kind_of?(URI::Generic) \
-      && self.class.validate_domain(uri, Array.wrap(options[:domain])) \
-      && self.class.validate_scheme(uri, Array.wrap(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)) \
+      && self.class.validate_domain(uri, [*(options[:domain])]) \
+      && self.class.validate_scheme(uri, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) \
       && (!!options[:root] ? self.class.validate_root(uri) : true)
   end
 

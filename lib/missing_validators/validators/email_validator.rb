@@ -33,7 +33,7 @@ class EmailValidator < ActiveModel::EachValidator
 
   def valid?(email, options)
     self.class.validate_format(email) \
-      && self.class.validate_domain(email, Array.wrap(options[:domain]))
+      && self.class.validate_domain(email, [*(options[:domain])])
   end
 
 end
