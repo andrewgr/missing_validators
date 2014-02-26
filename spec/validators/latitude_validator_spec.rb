@@ -19,5 +19,8 @@ describe LatitudeValidator do
 
     it { should_not allow_value(-90.1).for(:lat) }
     it { should_not allow_value(90.1).for(:lat) }
+
+    it { should_not allow_value(nil).for(:lat) }
+    it { should_not allow_value('').for(:lat) }
   end
 end

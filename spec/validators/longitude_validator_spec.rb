@@ -19,5 +19,8 @@ describe LongitudeValidator do
 
     it { should_not allow_value(-181.1).for(:lon) }
     it { should_not allow_value(181.1).for(:lon) }
+
+    it { should_not allow_value(nil).for(:lon) }
+    it { should_not allow_value('').for(:lon) }
   end
 end

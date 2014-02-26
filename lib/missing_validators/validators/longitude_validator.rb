@@ -23,7 +23,7 @@ class LongitudeValidator < ActiveModel::EachValidator
   private
 
   def self.valid?(longitude, options)
-    longitude >= -180 && longitude <= 180
+    longitude.present? && longitude >= -180 && longitude <= 180
   end
 
 end
