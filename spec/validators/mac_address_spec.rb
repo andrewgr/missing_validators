@@ -33,7 +33,7 @@ describe MacAddressValidator do
     it { should_not allow_value("08.00:2b:01:02:03").for(:mac) }
     it { should_not allow_value("08 00:2b:01:02:03").for(:mac) }
     it { should_not allow_value("0800-2b01:0203").for(:mac) }
-    it { should_not allow_value("0800 2b01 0203").for(:mac) }
+    it { should_not allow_value("0800 2b01:0203").for(:mac) }
 
     # Too Short
     it { should_not allow_value("08:00:2b:01:02").for(:mac) }
