@@ -1,11 +1,12 @@
 en:
   errors:
     messages:
-      inequality: "can't be equal to %{attr}"
-      email: "isn't a valid email address"
-      url: "isn't a valid URL"
-      mac_address: "isn't a valid MAC address"
-      longitude: "isn't a valid longitude"
+      imei: "is not a valid IMEI"
+      inequality: "cannot be equal to %{attr}"
+      email: "is not a valid email address"
+      url: "is not a valid URL"
+      mac_address: "is not a valid MAC address"
+      longitude: "is not a valid longitude"
   missing_validators:
     matchers:
       ensure_inequality_of:
