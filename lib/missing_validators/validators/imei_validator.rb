@@ -15,7 +15,7 @@ class ImeiValidator < ActiveModel::EachValidator
     allow_blank = options[:allow_blank] || false
     return if allow_blank && value.blank?
 
-    unless valid?(value, options)
+    unless valid?(value.to_s, options)
       record.errors[attribute] << (options[:message] || I18n.t('errors.messages.imei'))
     end
   end
@@ -25,26 +25,19 @@ class ImeiValidator < ActiveModel::EachValidator
   end
 
   def self.luhn_valid?(input)
-    number = input.
-      gsub(/\D/, ''). # remove non-digits
-      reverse  # read from right to left
+    numbers = input.gsub(/\D/, '').reverse
 
     sum, i = 0, 0
 
-    number.each_char do |ch|
+    numbers.each_char do |ch|
       n = ch.to_i
-
-      # Step 1
       n *= 2 if i.odd?
-
-      # Step 2
       n = 1 + (n - 10) if n >= 10
 
       sum += n
       i   += 1
     end
 
-    # Step 3
     (sum % 10).zero?
   end
 
