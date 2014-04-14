@@ -1,5 +1,5 @@
 require 'active_model'
-require 'rspec/matchers'
+require 'rspec/matchers' if defined?(RSpec)
 require 'missing_validators/version'
 require 'missing_validators/validators/inequality_validator'
 require 'missing_validators/matchers/ensure_inequality_of_matcher' if defined?(RSpec)
