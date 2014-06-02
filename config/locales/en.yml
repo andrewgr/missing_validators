@@ -7,6 +7,8 @@ en:
       url: "is not a valid URL"
       mac_address: "is not a valid MAC address"
       longitude: "is not a valid longitude"
+      latitude: "is not a valid latitude"
+      color: "is not a valid hexadecimal color"
   missing_validators:
     matchers:
       ensure_inequality_of:
