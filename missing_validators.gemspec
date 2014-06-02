@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Adds some handy validators.}
   gem.description   = %q{Validates email addresses, URLs, IMEI, MAC addresses and inequality of attributes.}
   gem.homepage      = "https://github.com/andrewgr/missing_validators/"
-  gem.license = 'MIT'
+  gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
@@ -16,9 +16,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = MissingValidators::VERSION
 
-  gem.add_dependency 'activemodel', '> 3.0.0'
-  gem.add_dependency 'activesupport', '> 3.0.0'
+  gem.add_runtime_dependency 'activemodel', '~> 3.0', '> 3.0.0'
+  gem.add_runtime_dependency 'activesupport', '~> 3.0', '> 3.0.0'
 
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'shoulda-matchers'
+  gem.add_development_dependency 'rspec', '~> 0'
+  gem.add_development_dependency 'shoulda-matchers', '~> 0'
 end
