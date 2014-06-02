@@ -8,12 +8,12 @@ RSpec::Matchers.define :ensure_valid_imei_format_of do |attribute|
     end
   end
 
-  failure_message_for_should do |model|
+  failure_message do |model|
     I18n.t 'missing_validators.matchers.ensure_valid_imei_format_of.failure_message_for_should',
       model: model.class
   end
 
-  failure_message_for_should_not do |model|
+  failure_message_when_negated do |model|
     I18n.t 'missing_validators.matchers.ensure_valid_imei_format_of.failure_message_for_should_not',
       model: model.class
   end
