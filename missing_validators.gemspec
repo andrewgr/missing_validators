@@ -2,10 +2,10 @@
 require File.expand_path('../lib/missing_validators/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Andrew Gridnev"]
+  gem.authors       = ["Andrei Gridnev"]
   gem.email         = ["andrew.gridnev@gmail.com"]
   gem.summary       = %q{Adds some handy validators.}
-  gem.description   = %q{Validates email addresses, URLs, IMEI, MAC addresses and inequality of attributes.}
+  gem.description   = %q{Validates email addresses, URLs, IMEI, MAC addresses, latitude, longitude, hex colors and inequality of attributes.}
   gem.homepage      = "https://github.com/andrewgr/missing_validators/"
   gem.license       = 'MIT'
 
