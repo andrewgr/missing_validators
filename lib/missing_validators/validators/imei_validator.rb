@@ -15,7 +15,7 @@ class ImeiValidator < ActiveModel::EachValidator
     allow_blank = options[:allow_blank] || false
     return if allow_blank && value.blank?
 
-    unless valid?(value.to_s, options)
+    unless self.class.valid?(value, options)
       record.errors[attribute] << (options[:message] || I18n.t('errors.messages.imei'))
     end
   end
@@ -43,8 +43,8 @@ class ImeiValidator < ActiveModel::EachValidator
 
   private
 
-  def valid?(imei, options)
-    self.class.validate_format(imei) \
-      && self.class.luhn_valid?(imei)
+  def self.valid?(imei, options)
+    validate_format(imei.to_s) \
+      && luhn_valid?(imei.to_s)
   end
 end

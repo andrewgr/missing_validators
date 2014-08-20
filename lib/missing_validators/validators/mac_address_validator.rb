@@ -34,5 +34,4 @@ class MacAddressValidator < ActiveModel::EachValidator
   def self.valid?(mac_address, options)
     validate_format(mac_address)
   end
-
 end

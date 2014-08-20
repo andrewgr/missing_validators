@@ -15,7 +15,7 @@ class EmailValidator < ActiveModel::EachValidator
     allow_blank = options[:allow_blank] || false
     return if allow_blank && value.blank?
 
-    unless valid?(value, options)
+    unless self.class.valid?(value, options)
       record.errors[attribute] << (options[:message] || I18n.t('errors.messages.email'))
     end
   end
@@ -31,9 +31,8 @@ class EmailValidator < ActiveModel::EachValidator
 
   private
 
-  def valid?(email, options)
-    self.class.validate_format(email) \
-      && self.class.validate_domain(email, [*(options[:domain])])
+  def self.valid?(email, options)
+    validate_format(email) \
+      && validate_domain(email, [*(options[:domain])])
   end
-
 end

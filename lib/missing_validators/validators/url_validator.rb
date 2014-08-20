@@ -43,5 +43,4 @@ class UrlValidator < ActiveModel::EachValidator
       && self.class.validate_scheme(uri, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) \
       && (!!options[:root] ? self.class.validate_root(uri) : true)
   end
-
 end

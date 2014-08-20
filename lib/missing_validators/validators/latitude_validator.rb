@@ -25,5 +25,4 @@ class LatitudeValidator < ActiveModel::EachValidator
   def self.valid?(latitude, options)
     latitude.present? && latitude >= -90 && latitude <= 90
   end
-
 end
