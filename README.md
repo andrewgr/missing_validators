@@ -1,9 +1,7 @@
-[![Code Climate](https://codeclimate.com/github/andrewgr/missing_validators/badges/gpa.svg)](https://codeclimate.com/github/andrewgr/missing_validators)
-
 # MissingValidators
 
 [![Build Status](https://travis-ci.org/andrewgr/missing_validators.png)](https://travis-ci.org/andrewgr/missing_validators)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/andrewgr/missing_validators)
+[![Code Climate](https://codeclimate.com/github/andrewgr/missing_validators/badges/gpa.svg)](https://codeclimate.com/github/andrewgr/missing_validators)
 
 MissingValidators is a collection of custom validators that are often required in Rails applications plus shoulda-style RSpec matchers to test the validation rules.
 
