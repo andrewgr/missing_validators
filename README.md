@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/andrewgr/missing_validators/badges/gpa.svg)](https://codeclimate.com/github/andrewgr/missing_validators)
+
 # MissingValidators
 
 [![Build Status](https://travis-ci.org/andrewgr/missing_validators.png)](https://travis-ci.org/andrewgr/missing_validators)
