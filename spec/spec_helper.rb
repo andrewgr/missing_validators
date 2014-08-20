@@ -1,3 +1,4 @@
+require 'codeclimate-test-reporter'
 require 'missing_validators'
 require 'shoulda/matchers/active_record'
 require 'shoulda-matchers'

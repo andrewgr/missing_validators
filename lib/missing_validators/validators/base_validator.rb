@@ -6,7 +6,7 @@ class BaseValidator < ActiveModel::EachValidator
     return if allow_blank && value.blank?
 
     unless self.class.valid?(value, options)
-      key = self.class.name.camelize.split('_').first
+      key = self.class.name.underscore.split('_').reverse.drop(1).reverse.join('_')
       record.errors[attribute] << (options[:message] || I18n.t("errors.messages.#{key}"))
     end
   end

@@ -5,21 +5,7 @@
 #     attr_accessor :email, :name
 #     validates :email, email: true
 #   end
-class EmailValidator < ActiveModel::EachValidator
-  # Checks if an attribute value is a valid email address.
-  #
-  # @param [Object] record object to validate
-  # @param [String] attribute name of the object attribute to validate
-  # @param [Object] value attribute value
-  def validate_each(record, attribute, value)
-    allow_blank = options[:allow_blank] || false
-    return if allow_blank && value.blank?
-
-    unless self.class.valid?(value, options)
-      record.errors[attribute] << (options[:message] || I18n.t('errors.messages.email'))
-    end
-  end
-
+class EmailValidator < BaseValidator
   def self.validate_format(email)
     !!(email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i)
   end

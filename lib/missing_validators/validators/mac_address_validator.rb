@@ -5,21 +5,7 @@
 #     attr_accessor :mac
 #     validates :mac, mac_address: true
 #   end
-class MacAddressValidator < ActiveModel::EachValidator
-  # Checks if an attribute value is a valid MAC address.
-  #
-  # @param [Object] record object to validate
-  # @param [String] attribute name of the object attribute to validate
-  # @param [Object] value attribute value
-  def validate_each(record, attribute, value)
-    allow_blank = options[:allow_blank] || false
-    return if allow_blank && value.blank?
-
-    unless self.class.valid?(value, options)
-      record.errors[attribute] << (options[:message] || I18n.t('errors.messages.mac_address'))
-    end
-  end
-
+class MacAddressValidator < BaseValidator
   def self.validate_format(mac_address)
     !!(mac_address =~ /^([\h]{2}:){5}[\h]{2}?$/i) ||            # 08:00:2b:01:02:03
       !!(mac_address =~ /^([\h]{2}[-|\.|\s]){5}[\h]{2}?$/i) ||  # 08-00-2b-01-02-03 or 08.00.2b.01.02.03

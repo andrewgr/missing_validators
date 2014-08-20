@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'shoulda-matchers'
+  gem.add_development_dependency 'codeclimate-test-reporter'
 end
