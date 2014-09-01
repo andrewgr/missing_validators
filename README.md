@@ -172,7 +172,7 @@ Ensures that IMEI is in one of the following formats:
     '35-6843052-637512'
     '35.6843052.637512'
 
-and has a valid checksum.
+and its check digit is correct.
 
 With an ActiveRecord model:
 
