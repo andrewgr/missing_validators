@@ -3,6 +3,7 @@ en:
     messages:
       imei: "is not a valid IMEI"
       inequality: "cannot be equal to %{attr}"
+      equality: "must be equal to %{attr}"
       email: "is not a valid email address"
       url: "is not a valid URL"
       mac_address: "is not a valid MAC address"
@@ -14,6 +15,9 @@ en:
       ensure_inequality_of:
         failure_message_for_should: "#{model} should ensure inequality on attribute #{attr}"
         failure_message_for_should_not: "#{model} should not ensure inequality on attribute #{attr}"
+      ensure_equality_of:
+        failure_message_for_should: "#{model} should ensure equality on attribute #{attr}"
+        failure_message_for_should_not: "#{model} should not ensure equality on attribute #{attr}"
       ensure_valid_email_format_of:
         failure_message_for_should: "#{model} should ensure valid email format of attribute #{attr}"
         failure_message_for_should_not: "#{model} should not ensure valid email format of attribute #{attr}"

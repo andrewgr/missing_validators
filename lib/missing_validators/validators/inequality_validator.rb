@@ -13,10 +13,16 @@ class InequalityValidator < ActiveModel::EachValidator
   # @param [String] attribute name of the object attribute to validate
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
-    unequal_to_attr = options[:to]
+    unequal_to = options[:to]
 
-    if unequal_to_attr.present? && value == record.send(unequal_to_attr.to_sym)
-      message = options[:message] || I18n.t('errors.messages.inequality', attr: unequal_to_attr)
+    unequal_to_value = if unequal_to.respond_to?(:call)
+      options[:to].call(record)
+    else
+      record.send(unequal_to.to_sym)
+    end
+
+    if unequal_to.present? && value == unequal_to_value
+      message = options[:message] || I18n.t('errors.messages.inequality', attr: unequal_to)
       record.errors[attribute] << message
     end
   end
