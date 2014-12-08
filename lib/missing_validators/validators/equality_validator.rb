@@ -2,7 +2,7 @@
 # the value of another attribute of an object.
 #
 class EqualityValidator < ActiveModel::EachValidator
-  # Checks if an attribute value is unequal to another attrubute value.
+  # Checks if an attribute value is unequal to another attribute value.
   #
   # @param [Object] record object to validate
   # @param [String] attribute name of the object attribute to validate
