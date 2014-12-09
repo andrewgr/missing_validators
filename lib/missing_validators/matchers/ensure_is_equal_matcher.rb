@@ -15,7 +15,6 @@ RSpec::Matchers.define :ensure_is_equal do |attribute|
 
     # Should have an error here
     return true if model.errors.has_key?(attribute) && model.errors[attribute].include?(I18n.t('errors.messages.is_equal', value: @to))
-
   end
 
   failure_message do |model|
