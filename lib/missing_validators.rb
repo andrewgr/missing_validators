@@ -21,3 +21,7 @@ require 'missing_validators/validators/latitude_validator'
 require 'missing_validators/validators/color_validator'
 require 'missing_validators/validators/imei_validator'
 require 'missing_validators/matchers/ensure_valid_imei_format_of' if defined?(RSpec)
+
+# if you put your locales in <GEM_ROOT>/config/locales, they will be picked up automatically...
+# But only if the gem is a Rails Engine, and this is not that.
+I18n.load_path << File.expand_path('../../config/locales/en.yml', __FILE__)
