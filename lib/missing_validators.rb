@@ -1,5 +1,4 @@
 require 'active_model'
-require 'public_suffix'
 require 'addressable/uri'
 require 'missing_validators/version'
 require 'missing_validators/validators/base_validator'

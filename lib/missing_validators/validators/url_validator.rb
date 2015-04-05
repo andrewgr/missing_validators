@@ -24,15 +24,18 @@ class UrlValidator < ActiveModel::EachValidator
   private
 
   def parse(url)
-    uri = Addressable::URI.parse(url)
-    if uri.nil? || uri.host.nil? || uri.host.include?(' ')
-      fail Addressable::URI::InvalidURIError
+    Addressable::URI.parse(url).tap do |uri|
+      fail Addressable::URI::InvalidURIError if uri.nil? || uri.host.nil?
     end
-    PublicSuffix.parse(uri.host.downcase)
-    uri
   end
 
-  def validate_domain(uri, *domains)
+  def validate_host(uri)
+    !uri.host.include?(' ') \
+      && uri.host.include?('.') \
+      && uri.host.split('.').last.length > 1
+  end
+
+  def validate_top_level_domain(uri, *domains)
     return true if domains.empty?
 
     host = uri.host.to_s.downcase
@@ -51,7 +54,8 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def valid?(uri, options)
-    validate_domain(uri, *options[:domain]) \
+    validate_host(uri) \
+      && validate_top_level_domain(uri, *options[:domain]) \
       && validate_scheme(uri, *options[:scheme]) \
       && (options[:root] == true ? validate_root(uri) : true)
   end
