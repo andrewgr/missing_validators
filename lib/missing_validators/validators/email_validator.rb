@@ -1,4 +1,4 @@
-# Allows to check if the value of a specific attribute is a valid email address.
+# Checks if the value of an attribute is a valid email address.
 #
 # @example Validate that the user email is a valid email address.
 #   class User << ActiveRecord::Base
@@ -13,15 +13,17 @@ class EmailValidator < BaseValidator
 
   def valid?(email, options)
     validate_format(email) \
-      && validate_domain(email, [*(options[:domain])])
+      && validate_domain(email, *options[:domain])
   end
 
   def validate_format(email)
     !!(email =~ EMAIL_FORMAT)
   end
 
-  def validate_domain(email, domains)
+  def validate_domain(email, *domains)
+    return true if domains.blank?
+
     email_downcased = email.to_s.downcase
-    domains.empty? || domains.any? { |domain| email_downcased.end_with?(".#{domain.downcase}") }
+    domains.any? { |domain| email_downcased.end_with?(".#{domain.downcase}") }
   end
 end

@@ -9,6 +9,6 @@ task :default => :spec
 
 desc "Run cane to check quality metrics"
 Cane::RakeTask.new(:quality) do |cane|
-  cane.abc_max = 15
+  cane.abc_max = 10
   cane.no_style = true
 end
