@@ -20,7 +20,7 @@ class BaseValidator < ActiveModel::EachValidator
   end
 
   def error_message_key
-    key = self.class.name.underscore.split('_').reverse.drop(1).reverse.join('_')
+    key = self.class.name.underscore.gsub('_validator', '')
     "errors.messages.#{key}"
   end
 end
