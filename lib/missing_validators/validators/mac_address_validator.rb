@@ -6,7 +6,7 @@
 #     validates :mac, mac_address: true
 #   end
 class MacAddressValidator < BaseValidator
-  def self.validate_format(mac_address)
+  def validate_format(mac_address)
     !!(mac_address =~ /^([\h]{2}:){5}[\h]{2}?$/i) ||            # 08:00:2b:01:02:03
       !!(mac_address =~ /^([\h]{2}[-|\.|\s]){5}[\h]{2}?$/i) ||  # 08-00-2b-01-02-03 or 08.00.2b.01.02.03
       !!(mac_address =~ /^([\h]{6})[-|\.][\h]{6}?$/i) ||        # 08002b-010203 or 08002b.010203
@@ -17,7 +17,7 @@ class MacAddressValidator < BaseValidator
 
   private
 
-  def self.valid?(mac_address, options)
+  def valid?(mac_address, options)
     validate_format(mac_address)
   end
 end

@@ -6,11 +6,11 @@
 #     validates :imei, imei: true
 #   end
 class ImeiValidator < BaseValidator
-  def self.validate_format(imei_number)
+  def validate_format(imei_number)
     !!(imei_number =~ /\A[\d\.\:\-\s]+\z/i) # 356843052637512 or 35-6843052-637512 or 35.6843052.637512
   end
 
-  def self.luhn_valid?(input)
+  def luhn_valid?(input)
     numbers = input.gsub(/\D/, '').reverse
 
     sum, i = 0, 0
@@ -29,7 +29,7 @@ class ImeiValidator < BaseValidator
 
   private
 
-  def self.valid?(imei, options)
+  def valid?(imei, options)
     validate_format(imei.to_s) \
       && luhn_valid?(imei.to_s)
   end

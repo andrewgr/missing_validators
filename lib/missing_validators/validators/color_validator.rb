@@ -6,13 +6,13 @@
 #     validates :color, color: true
 #   end
 class ColorValidator < BaseValidator
-  def self.validate_format(color)
+  def validate_format(color)
     !!(color =~ /^#(?:[0-9a-f]{3})(?:[0-9a-f]{3})?$/i)
   end
 
   private
 
-  def self.valid?(color, options)
+  def valid?(color, options)
     validate_format(color)
   end
 end
