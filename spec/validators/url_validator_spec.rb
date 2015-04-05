@@ -28,11 +28,13 @@ describe UrlValidator do
     it { should allow_value('https://example.travel/').for(:url) }
     it { should allow_value('http://example.aero').for(:url) }
     it { should allow_value('http://example.aero?foo=bar').for(:url) }
+    it { should allow_value('http://user_example.com').for(:url) }
 
     it { should_not allow_value('http://user_examplecom').for(:url) }
-    it { should_not allow_value('http://user_example.com').for(:url) }
+    it { should_not allow_value('http://user example.com').for(:url) }
     it { should_not allow_value('http://user_example.a').for(:url) }
     it { should_not allow_value(':').for(:url) }
+    it { should_not allow_value('.').for(:url) }
   end
 
   describe 'url must be in a specific domain' do

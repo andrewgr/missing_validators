@@ -18,6 +18,8 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'activemodel'
   gem.add_runtime_dependency 'activesupport'
+  gem.add_runtime_dependency 'public_suffix'
+  gem.add_runtime_dependency 'addressable'
 
   gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rubocop'

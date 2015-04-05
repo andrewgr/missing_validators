@@ -2,7 +2,7 @@ RSpec::Matchers.define :ensure_valid_url_format_of do |attribute|
   root = 'missing_validators.matchers.ensure_valid_url_format_of'
 
   match do |model|
-    model.send("#{attribute}=", ':')
+    model.send("#{attribute}=", ' - ')
     model.valid?
 
     if model.errors.to_hash.key?(attribute)
