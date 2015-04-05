@@ -6,7 +6,6 @@
 #     validates :email, email: true
 #   end
 class EmailValidator < BaseValidator
-
   private
 
   EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -17,7 +16,7 @@ class EmailValidator < BaseValidator
   end
 
   def validate_format(email)
-    !!(email =~ EMAIL_FORMAT)
+    (email =~ EMAIL_FORMAT).present?
   end
 
   def validate_domain(email, *domains)

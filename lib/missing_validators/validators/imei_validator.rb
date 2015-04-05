@@ -8,10 +8,11 @@
 class ImeiValidator < BaseValidator
   private
 
-  IMEI_FORMAT = /\A[\d\.\:\-\s]+\z/i # 356843052637512 or 35-6843052-637512 or 35.6843052.637512
+  # 356843052637512 or 35-6843052-637512 or 35.6843052.637512
+  IMEI_FORMAT = /\A[\d\.\:\-\s]+\z/i
 
   def validate_format(imei_number)
-    !!(imei_number =~ IMEI_FORMAT)
+    (imei_number =~ IMEI_FORMAT).present?
   end
 
   def validate_luhn_checksum(input)
@@ -31,7 +32,7 @@ class ImeiValidator < BaseValidator
     (sum % 10).zero?
   end
 
-  def valid?(imei, options)
+  def valid?(imei, _)
     validate_format(imei.to_s) \
       && validate_luhn_checksum(imei.to_s)
   end

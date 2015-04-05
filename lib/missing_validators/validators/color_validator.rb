@@ -10,7 +10,7 @@ class ColorValidator < BaseValidator
 
   HEX_COLOR_FORMAT = /^#(?:[0-9a-f]{3})(?:[0-9a-f]{3})?$/i
 
-  def valid?(color, options)
-    !!(color =~ HEX_COLOR_FORMAT)
+  def valid?(color, _)
+    (color =~ HEX_COLOR_FORMAT).present?
   end
 end

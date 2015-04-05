@@ -5,18 +5,17 @@ class BaseValidator < ActiveModel::EachValidator
     allow_blank = options.fetch(:allow_blank, false)
 
     return if allow_blank && value.blank?
+    return if valid?(value, options)
 
-    unless valid?(value, options)
-      record.errors[attribute] << options.fetch(:message) do
-        I18n.t(error_message_key)
-      end
+    record.errors[attribute] << options.fetch(:message) do
+      I18n.t(error_message_key)
     end
   end
 
   private
 
-  def valid?(color, options)
-    raise NotImplementedError
+  def valid?(_value, _options)
+    fail NotImplementedError
   end
 
   def error_message_key

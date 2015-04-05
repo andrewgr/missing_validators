@@ -8,7 +8,7 @@
 class LongitudeValidator < BaseValidator
   private
 
-  def valid?(longitude, options)
+  def valid?(longitude, _)
     longitude.present? && longitude.between?(-180, 180)
   end
 end

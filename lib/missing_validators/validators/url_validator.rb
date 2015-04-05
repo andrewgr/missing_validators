@@ -19,6 +19,10 @@ class UrlValidator < ActiveModel::EachValidator
     record.errors[attribute] << (options[:message] || I18n.t('errors.messages.url'))
   end
 
+  private
+
+  DEFAULT_SCHEMES = [:http, :https]
+
   def validate_domain(uri, domains)
     host_downcased = uri.host.to_s.downcase
     domains.empty? || domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
@@ -33,12 +37,8 @@ class UrlValidator < ActiveModel::EachValidator
     ['/', ''].include?(uri.path) && uri.query.blank? && uri.fragment.blank?
   end
 
-  private
-
-  DEFAULT_SCHEMES = [:http, :https]
-
   def valid?(uri, options)
-    uri.kind_of?(URI::Generic) \
+    uri.is_a?(URI::Generic) \
       && validate_domain(uri, [*(options[:domain])]) \
       && validate_scheme(uri, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) \
       && (!!options[:root] ? validate_root(uri) : true)

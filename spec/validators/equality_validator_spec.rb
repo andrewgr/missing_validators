@@ -1,27 +1,19 @@
 require 'spec_helper'
 
 describe EqualityValidator do
+  subject(:model) { klass.new }
 
   describe do
     let(:klass) do
       Class.new do
         include ActiveModel::Validations
-        attr_accessor :attr
-        validates :attr, equality: { to: Proc.new { |o| 'valid value' } }
+        attr_accessor :origin, :destination, :airline
+        validates :origin, equality: { to: 'MOW' }
       end
     end
 
-    subject(:model){ klass.new }
-
-    specify "field is not the same as the result of the validating proc" do
-      model.attr = "invalid value"
-      expect(model).to be_invalid
-    end
-
-    specify "field is the same as the result of the validating proc" do
-      model.attr = "valid value"
-      expect(model).to be_valid
-    end
+    it { should allow_value('MOW').for(:origin) }
+    it { should_not allow_value('NYC').for(:origin) }
   end
 
   describe do
@@ -29,39 +21,34 @@ describe EqualityValidator do
       Class.new do
         include ActiveModel::Validations
         attr_accessor :origin, :destination, :airline
-        validates :origin, equality: { to: :destination }
+        validates :origin, equality: { to: ->(o) { o.destination } }
       end
     end
 
-    subject(:model){ klass.new }
-
-    it { should ensure_equality_of(:origin).to(:destination) }
-    it { should_not ensure_equality_of(:origin).to(:airline) }
-
-    specify "both fields have same values" do
-      model.origin = model.destination = "MOW"
+    specify 'both fields have same values' do
+      model.origin = model.destination = 'MOW'
       expect(model).to be_valid
     end
 
-    specify "fields have different value" do
-      model.origin = "NYC"
-      model.destination = "MOW"
+    specify 'fields have different value' do
+      model.origin = 'NYC'
+      model.destination = 'MOW'
       expect(model).to be_invalid
     end
 
-    specify "first field has value, the second is nil" do
-      model.origin = "NYC"
+    specify 'first field has value, the second is nil' do
+      model.origin = 'NYC'
       model.destination = nil
       expect(model).to be_invalid
     end
 
-    specify "first field is nil, the second has value" do
+    specify 'first field is nil, the second has value' do
       model.origin = nil
-      model.destination = "NYC"
+      model.destination = 'NYC'
       expect(model).to be_invalid
     end
 
-    specify "both fields are nil" do
+    specify 'both fields are nil' do
       model.origin = model.destination = nil
       expect(model).to be_valid
     end

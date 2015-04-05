@@ -1,24 +1,20 @@
-# Checks if the value of an attribute is equal to the value of another
-# attribute of an object.
+# Checks if the value of an attribute is equal to a value or proc result.
 #
 class EqualityValidator < ActiveModel::EachValidator
-  # Checks if an attribute value is equal to another attrubute value.
+  # Checks if an attribute value is equal to a value or proc result.
   #
   # @param [Object] record object to validate
   # @param [String] attribute name of the object attribute to validate
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
-    equal_to = options[:to]
+    to = options[:to]
 
-    equal_to_value = if equal_to.respond_to?(:call)
-      options[:to].call(record)
-    else
-      record.send(equal_to.to_sym)
-    end
+    equal_to_value = to.respond_to?(:call) ? options[:to].call(record) : to
 
-    if equal_to.present? && value != equal_to_value
-      message = options[:message] || I18n.t('errors.messages.equality', attr: equal_to)
-      record.errors[attribute] << message
+    if value != equal_to_value
+      record.errors[attribute] << options.fetch(:message) do
+        I18n.t('errors.messages.equality', value: equal_to_value)
+      end
     end
   end
 end
