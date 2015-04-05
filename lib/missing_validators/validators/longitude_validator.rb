@@ -1,14 +1,14 @@
-# Allows to check if the value of a specific attribute is a valid MAC address.
+# Checks if the value of an attribute is a valid longitude.
 #
-# @example Validate that the device MAC address is valid.
+# @example Validate that the device longitude is valid.
 #   class Device << ActiveRecord::Base
-#     attr_accessor :lon
-#     validates :lon, longitude: true
+#     attr_accessor :longitude
+#     validates :longitude, longitude: true
 #   end
 class LongitudeValidator < BaseValidator
   private
 
   def valid?(longitude, options)
-    longitude.present? && longitude >= -180 && longitude <= 180
+    longitude.present? && longitude.between?(-180, 180)
   end
 end

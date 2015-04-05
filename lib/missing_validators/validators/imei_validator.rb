@@ -1,16 +1,20 @@
-# Allows to check if the value of a specific attribute is a valid IMEI address.
+# Checks if the value of an attribute is a valid IMEI number.
 #
-# @example Validate that the device IMEI address is valid.
+# @example Validate that a device IMEI number is valid.
 #   class Device << ActiveRecord::Base
 #     attr_accessor :imei
 #     validates :imei, imei: true
 #   end
 class ImeiValidator < BaseValidator
+  private
+
+  IMEI_FORMAT = /\A[\d\.\:\-\s]+\z/i # 356843052637512 or 35-6843052-637512 or 35.6843052.637512
+
   def validate_format(imei_number)
-    !!(imei_number =~ /\A[\d\.\:\-\s]+\z/i) # 356843052637512 or 35-6843052-637512 or 35.6843052.637512
+    !!(imei_number =~ IMEI_FORMAT)
   end
 
-  def luhn_valid?(input)
+  def validate_luhn_checksum(input)
     numbers = input.gsub(/\D/, '').reverse
 
     sum, i = 0, 0
@@ -27,10 +31,8 @@ class ImeiValidator < BaseValidator
     (sum % 10).zero?
   end
 
-  private
-
   def valid?(imei, options)
     validate_format(imei.to_s) \
-      && luhn_valid?(imei.to_s)
+      && validate_luhn_checksum(imei.to_s)
   end
 end

@@ -1,8 +1,8 @@
-# Allows to check if the value of a specific attribute is equal to
-# the value of another attribute of an object.
+# Checks if the value of an attribute is equal to the value of another
+# attribute of an object.
 #
 class EqualityValidator < ActiveModel::EachValidator
-  # Checks if an attribute value is unequal to another attrubute value.
+  # Checks if an attribute value is equal to another attrubute value.
   #
   # @param [Object] record object to validate
   # @param [String] attribute name of the object attribute to validate

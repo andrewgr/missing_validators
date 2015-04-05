@@ -1,4 +1,4 @@
-# Allows to check if the value of a specific attribute is not equal to
+# Checks if the value of an attribute is not equal to
 # the value of another attribute of an object.
 #
 # @example Validate that flight origin is not the same as its destination.

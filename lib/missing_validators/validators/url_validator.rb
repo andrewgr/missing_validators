@@ -1,5 +1,5 @@
 require 'uri'
-# Allows to check if the value of a specific attribute is a valid URL.
+# Checks if the value of an attribute is a valid URL.
 #
 # @example Validate that the user's blog URL is valid.
 #   class User << ActiveRecord::Base

@@ -1,4 +1,4 @@
-# Allows to check if the value of a specific attribute is a valid MAC address.
+# Checks if the value of an attribute is a valid MAC address.
 #
 # @example Validate that the device MAC address is valid.
 #   class Device << ActiveRecord::Base
