@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Andrei Gridnev"]
   gem.email         = ["andrew.gridnev@gmail.com"]
   gem.summary       = %q{Adds some handy validators.}
-  gem.description   = %q{Validates email addresses, URLs, IMEI, MAC addresses, latitude, longitude, hex colors and inequality of attributes.}
+  gem.description   = %q{Validates email addresses, URLs, IMEI, MAC addresses, latitude, longitude, hex colors and (in-)equality of attributes.}
   gem.homepage      = "https://github.com/andrewgr/missing_validators/"
   gem.license       = 'MIT'
 
@@ -20,6 +20,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'activesupport'
 
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rubocop'
+  gem.add_development_dependency 'cane'
   gem.add_development_dependency 'shoulda-matchers'
   gem.add_development_dependency 'codeclimate-test-reporter'
 end
