@@ -11,10 +11,10 @@ class InequalityValidator < ActiveModel::EachValidator
 
     unequal_to_value = to.respond_to?(:call) ? options[:to].call(record) : to
 
-    if value == unequal_to_value
-      record.errors[attribute] << options.fetch(:message) do
-        I18n.t('errors.messages.inequality', value: unequal_to_value)
-      end
+    return if value != unequal_to_value
+
+    record.errors[attribute] << options.fetch(:message) do
+      I18n.t('errors.messages.inequality', value: unequal_to_value)
     end
   end
 end

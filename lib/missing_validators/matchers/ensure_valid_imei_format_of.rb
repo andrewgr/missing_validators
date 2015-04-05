@@ -5,7 +5,7 @@ RSpec::Matchers.define :ensure_valid_imei_format_of do |attribute|
     model.send("#{attribute}=", 'invalid.imei')
     model.valid?
 
-    if model.errors.has_key?(attribute)
+    if model.errors.to_hash.key?(attribute)
       model.errors[attribute].include?(I18n.t('errors.messages.imei'))
     end
   end

@@ -15,7 +15,7 @@ describe ImeiValidator do
   it { should_not ensure_valid_imei_format_of(:name) }
 
   context 'value is valid' do
-    it { should allow_value(356843052637512).for(:imei) }
+    it { should allow_value(356_843_052_637_512).for(:imei) }
     it { should allow_value('356843052637512').for(:imei) }
     it { should allow_value('35-684305-2637512').for(:imei) }
     it { should allow_value('35-684305.263.7512').for(:imei) }

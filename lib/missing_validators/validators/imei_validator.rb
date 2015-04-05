@@ -15,9 +15,7 @@ class ImeiValidator < BaseValidator
     (imei_number =~ IMEI_FORMAT).present?
   end
 
-  def validate_luhn_checksum(input)
-    numbers = input.gsub(/\D/, '').reverse
-
+  def validate_luhn_checksum(numbers)
     sum, i = 0, 0
 
     numbers.each_char do |ch|
@@ -34,6 +32,6 @@ class ImeiValidator < BaseValidator
 
   def valid?(imei, _)
     validate_format(imei.to_s) \
-      && validate_luhn_checksum(imei.to_s)
+      && validate_luhn_checksum(imei.to_s.gsub(/\D/, '').reverse)
   end
 end

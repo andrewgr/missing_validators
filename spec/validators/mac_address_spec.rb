@@ -16,14 +16,14 @@ describe MacAddressValidator do
 
   # Valid formats
   it { should allow_value('08:00:2b:01:02:03').for(:mac) }
-  it { should allow_value('08-00-2b-01-02-03').for(:mac) }
+  it { should allow_value('08-00-2B-01-02-03').for(:mac) }
   it { should allow_value('08.00.2b.01.02.03').for(:mac) }
-  it { should allow_value('08 00 2b 01 02 03').for(:mac) }
+  it { should allow_value('08 00 2B 01 02 03').for(:mac) }
   it { should allow_value('08002b:010203').for(:mac) }
-  it { should allow_value('08002b.010203').for(:mac) }
+  it { should allow_value('08002B.010203').for(:mac) }
   it { should allow_value('08002b-010203').for(:mac) }
   it { should allow_value('0800.2b01.0203').for(:mac) }
-  it { should allow_value('0800-2b01-0203').for(:mac) }
+  it { should allow_value('0800-2B01-0203').for(:mac) }
   it { should allow_value('0800 2b01 0203').for(:mac) }
   it { should allow_value('08002b010203').for(:mac) }
 
@@ -32,11 +32,11 @@ describe MacAddressValidator do
   it { should_not allow_value('08.00:2b:01:02:03').for(:mac) }
   it { should_not allow_value('08 00:2b:01:02:03').for(:mac) }
   it { should_not allow_value('0800-2b01:0203').for(:mac) }
-  it { should_not allow_value('0800 2b01:0203').for(:mac) }
+  it { should_not allow_value('0800 2B01:0203').for(:mac) }
 
   # Too Short
   it { should_not allow_value('08:00:2b:01:02').for(:mac) }
-  it { should_not allow_value('08-00-2b-01-02').for(:mac) }
+  it { should_not allow_value('08-00-2B-01-02').for(:mac) }
 
   # Too Long
   it { should_not allow_value('08:00:2b:01:02:03:04').for(:mac) }

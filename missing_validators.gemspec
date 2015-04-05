@@ -9,9 +9,9 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://github.com/andrewgr/missing_validators/'
   gem.license       = 'MIT'
 
-  gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(spec)/})
+  gem.files         = `git ls-files`.split($ORS)
+  gem.executables   = gem.files.grep(/^bin\//).map { |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(/^(spec)\//)
   gem.name          = 'missing_validators'
   gem.require_paths = ['lib']
   gem.version       = MissingValidators::VERSION

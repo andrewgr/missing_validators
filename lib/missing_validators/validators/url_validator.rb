@@ -14,23 +14,29 @@ class UrlValidator < ActiveModel::EachValidator
   # @param [Object] value attribute value
   def validate_each(record, attribute, value)
     uri = URI.parse(value)
-    raise URI::InvalidURIError unless valid?(uri, options)
+    fail URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
-    record.errors[attribute] << (options[:message] || I18n.t('errors.messages.url'))
+    record.errors[attribute] << options.fetch(:message) do
+      I18n.t('errors.messages.url')
+    end
   end
 
   private
 
   DEFAULT_SCHEMES = [:http, :https]
 
-  def validate_domain(uri, domains)
+  def validate_domain(uri, *domains)
+    return true if domains.empty?
+
     host_downcased = uri.host.to_s.downcase
-    domains.empty? || domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
+    domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
   end
 
-  def validate_scheme(uri, schemes)
+  def validate_scheme(uri, *schemes)
+    return true if schemes.empty?
+
     scheme_downcased = uri.scheme.to_s.downcase
-    schemes.empty? || schemes.any? { |scheme| scheme_downcased == scheme.to_s.downcase }
+    schemes.any? { |scheme| scheme_downcased == scheme.to_s.downcase }
   end
 
   def validate_root(uri)
@@ -39,8 +45,8 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid?(uri, options)
     uri.is_a?(URI::Generic) \
-      && validate_domain(uri, [*(options[:domain])]) \
-      && validate_scheme(uri, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) \
-      && (!!options[:root] ? validate_root(uri) : true)
+      && validate_domain(uri, *options[:domain]) \
+      && validate_scheme(uri, *options[:scheme]) \
+      && (options[:root].present? ? validate_root(uri) : true)
   end
 end
