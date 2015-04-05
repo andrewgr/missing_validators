@@ -28,8 +28,8 @@ class UrlValidator < ActiveModel::EachValidator
   def validate_domain(uri, *domains)
     return true if domains.empty?
 
-    host_downcased = uri.host.to_s.downcase
-    domains.any? { |domain| host_downcased.end_with?(".#{domain.downcase}") }
+    host = uri.host.to_s.downcase
+    domains.any? { |domain| host.end_with?(".#{domain.downcase}") }
   end
 
   def validate_scheme(uri, *schemes)
