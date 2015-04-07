@@ -26,7 +26,7 @@ class EmailValidator < BaseValidator
 
     domains.any? do |domain|
       domain = domain.to_s.downcase
-      domain = "@#{domain}" if domain.start_with?('.')
+      domain = "@#{domain}" unless domain.start_with?('.')
 
       email_downcased.end_with?(domain)
     end

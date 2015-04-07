@@ -40,9 +40,9 @@ Or any ruby class:
 
 You can specify domains to which the email domain should belong in one of the folowing ways:
 
-    validates :email, email: { domains: 'com' }
-    validates :email, email: { domains: :com }
-    validates :email, email: { domains: [:com, 'edu'] }
+    validates :email, email: { domains: '.com' }
+    validates :email, email: { domains: 'example.org' }
+    validates :email, email: { domains: ['.com', '.edu', 'example.org'] }
 
 RSpec matcher is also available for your convenience:
 
@@ -94,7 +94,7 @@ With an ActiveRecord model:
 
     class Flight < ActiveRecord::Base
       attr_accessor :origin, :destination
-      validates :origin, inequality: { to: :destination }
+      validates :origin, inequality: { to: ->(o) { o.destination } }
     end
 
 Or any ruby class:
@@ -102,13 +102,7 @@ Or any ruby class:
     class Flight
       include ActiveModel::Validations
       attr_accessor :origin, :destination
-      validates :origin, inequality: { to: :destination }
-    end
-
-RSpec matcher is also available for your convenience:
-
-    describe Flight do
-      it { should ensure_inequality_of(:origin).to(:destination) }
+      validates :origin, inequality: { to: ->(o) { o.destination } }
     end
 
 ### MacAddressValidator
