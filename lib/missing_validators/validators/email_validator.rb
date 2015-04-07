@@ -11,8 +11,8 @@ class EmailValidator < BaseValidator
   EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
   def valid?(email, options)
-    validate_format(email) \
-      && validate_domain(email, *options[:domain])
+    validate_format(email) && \
+      validate_domain(email, *options[:domain])
   end
 
   def validate_format(email)

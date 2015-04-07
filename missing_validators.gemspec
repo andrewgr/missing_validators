@@ -10,20 +10,20 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
 
   gem.files         = `git ls-files`.split($ORS)
-  gem.executables   = gem.files.grep(/^bin\//).map { |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(/^(spec)\//)
+  gem.executables   = gem.files.grep(%r{^bin/}).map { |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^spec/})
   gem.name          = 'missing_validators'
   gem.require_paths = ['lib']
   gem.version       = MissingValidators::VERSION
 
-  gem.add_runtime_dependency 'activemodel', '~> 4'
-  gem.add_runtime_dependency 'activesupport', '~> 4'
-  gem.add_runtime_dependency 'addressable', '~> 2.3'
+  gem.add_runtime_dependency 'activemodel', '>= 4'
+  gem.add_runtime_dependency 'activesupport', '>= 4'
+  gem.add_runtime_dependency 'addressable', '>= 2.3'
 
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'rubocop'
-  gem.add_development_dependency 'cane'
-  gem.add_development_dependency 'shoulda'
-  gem.add_development_dependency 'shoulda-matchers'
-  gem.add_development_dependency 'codeclimate-test-reporter'
+  gem.add_development_dependency 'rspec', '>= 3'
+  gem.add_development_dependency 'rubocop', '>= 0.30'
+  gem.add_development_dependency 'cane', '>= 2.6.1'
+  gem.add_development_dependency 'shoulda', '>= 3.5'
+  gem.add_development_dependency 'shoulda-matchers', '>= 2.8.0'
+  gem.add_development_dependency 'codeclimate-test-reporter', '>= 0.4.7'
 end

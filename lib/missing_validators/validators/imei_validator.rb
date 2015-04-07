@@ -24,14 +24,14 @@ class ImeiValidator < BaseValidator
       n = 1 + (n - 10) if n >= 10
 
       sum += n
-      i   += 1
+      i += 1
     end
 
     (sum % 10).zero?
   end
 
   def valid?(imei, _)
-    validate_format(imei.to_s) \
-      && validate_luhn_checksum(imei.to_s.gsub(/\D/, '').reverse)
+    validate_format(imei.to_s) && \
+      validate_luhn_checksum(imei.to_s.gsub(/\D/, '').reverse)
   end
 end

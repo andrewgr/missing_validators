@@ -30,9 +30,9 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def validate_host(uri)
-    !uri.host.include?(' ') \
-      && uri.host.include?('.') \
-      && uri.host.split('.').last.length > 1
+    !uri.host.include?(' ') && \
+      uri.host.include?('.') && \
+      uri.host.split('.').last.length > 1
   end
 
   def validate_top_level_domain(uri, *domains)
@@ -50,13 +50,15 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def validate_root(uri)
-    ['/', ''].include?(uri.path) && uri.query.blank? && uri.fragment.blank?
+    ['/', ''].include?(uri.path) && \
+      uri.query.blank? && \
+      uri.fragment.blank?
   end
 
   def valid?(uri, options)
-    validate_host(uri) \
-      && validate_top_level_domain(uri, *options[:domain]) \
-      && validate_scheme(uri, *options[:scheme]) \
-      && (options[:root] == true ? validate_root(uri) : true)
+    validate_host(uri) && \
+      validate_top_level_domain(uri, *options[:domain]) && \
+      validate_scheme(uri, *options[:scheme]) && \
+      (options[:root] == true ? validate_root(uri) : true)
   end
 end
