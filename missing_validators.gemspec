@@ -16,8 +16,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = MissingValidators::VERSION
 
-  gem.add_runtime_dependency 'activemodel', '>= 4'
-  gem.add_runtime_dependency 'activesupport', '>= 4'
+  gem.add_runtime_dependency 'activemodel', '>= 3'
+  gem.add_runtime_dependency 'activesupport', '>= 3'
   gem.add_runtime_dependency 'addressable', '>= 2.3'
 
   gem.add_development_dependency 'rspec', '>= 3'
