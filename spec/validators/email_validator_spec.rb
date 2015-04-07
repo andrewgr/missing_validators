@@ -39,7 +39,7 @@ describe EmailValidator do
         Class.new do
           include ActiveModel::Validations
           attr_accessor :email, :name
-          validates :email, email: { domain: 'edu' }
+          validates :email, email: { domain: '.edu' }
         end
       end
 
@@ -52,15 +52,18 @@ describe EmailValidator do
         Class.new do
           include ActiveModel::Validations
           attr_accessor :email, :name
-          validates :email, email: { domain: ['com', :edu, 'Com.Au'] }
+          validates :email, email: {
+            domain: ['.com', '.edu', '.Com.Au', 'example.org']
+          }
         end
       end
 
       it { should allow_value('user@example.com').for(:email) }
       it { should allow_value('user@example.edu').for(:email) }
+      it { should allow_value('user@example.org').for(:email) }
       it { should allow_value('user@example.com.au').for(:email) }
       it { should allow_value('user@example.Com.Au').for(:email) }
-      it { should_not allow_value('user@example.org').for(:email) }
+      it { should_not allow_value('user@example.net').for(:email) }
     end
   end
 end

@@ -23,6 +23,12 @@ class EmailValidator < BaseValidator
     return true if domains.blank?
 
     email_downcased = email.to_s.downcase
-    domains.any? { |domain| email_downcased.end_with?(".#{domain.downcase}") }
+
+    domains.any? do |domain|
+      domain = domain.to_s.downcase
+      domain = "@#{domain}" if domain.start_with?('.')
+
+      email_downcased.end_with?(domain)
+    end
   end
 end
