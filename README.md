@@ -44,6 +44,8 @@ You can specify domains to which the email domain should belong in one of the fo
     validates :email, email: { domains: 'example.org' }
     validates :email, email: { domains: ['.com', '.edu', 'example.org'] }
 
+Please note that if a domain is specified as a sting starting with "." (for example, ".com") then the valid values should be in the subdomains of this domain (for example, "email@example.com" or "user@subdomain.example.com"). If a domain is specified without leading "." (for example, "example.org"), then the valid values should be in this domain only (for example, "user@example.org" or "email@example.org", but not "email@subdomain.example.org").
+
 RSpec matcher is also available for your convenience:
 
     describe User do
