@@ -1,6 +1,11 @@
 # Base class for most validators in the gem.
 #
 class BaseValidator < ActiveModel::EachValidator
+  # Checks if an attribute value is valid.
+  #
+  # @param [Object] record object to validate
+  # @param [String] attribute name of the object attribute to validate
+  # @param [Object] value attribute value
   def validate_each(record, attribute, value)
     allow_blank = options.fetch(:allow_blank, false)
 
