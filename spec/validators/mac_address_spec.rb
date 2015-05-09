@@ -11,38 +11,43 @@ describe MacAddressValidator do
 
   subject { klass.new }
 
-  it { should ensure_valid_mac_address_format_of(:mac) }
-  it { should_not ensure_valid_mac_address_format_of(:name) }
+  it { is_expected.to ensure_valid_mac_address_format_of(:mac) }
+  it { is_expected.not_to ensure_valid_mac_address_format_of(:name) }
 
-  # Valid formats
-  it { should allow_value('08:00:2b:01:02:03').for(:mac) }
-  it { should allow_value('08-00-2B-01-02-03').for(:mac) }
-  it { should allow_value('08.00.2b.01.02.03').for(:mac) }
-  it { should allow_value('08 00 2B 01 02 03').for(:mac) }
-  it { should allow_value('08002b:010203').for(:mac) }
-  it { should allow_value('08002B.010203').for(:mac) }
-  it { should allow_value('08002b-010203').for(:mac) }
-  it { should allow_value('0800.2b01.0203').for(:mac) }
-  it { should allow_value('0800-2B01-0203').for(:mac) }
-  it { should allow_value('0800 2b01 0203').for(:mac) }
-  it { should allow_value('08002b010203').for(:mac) }
+  context 'when MAC-address is valid' do
+    it { is_expected.to allow_value('08:00:2b:01:02:03').for(:mac) }
+    it { is_expected.to allow_value('08-00-2B-01-02-03').for(:mac) }
+    it { is_expected.to allow_value('08.00.2b.01.02.03').for(:mac) }
+    it { is_expected.to allow_value('08 00 2B 01 02 03').for(:mac) }
+    it { is_expected.to allow_value('08002b:010203').for(:mac) }
+    it { is_expected.to allow_value('08002B.010203').for(:mac) }
+    it { is_expected.to allow_value('08002b-010203').for(:mac) }
+    it { is_expected.to allow_value('0800.2b01.0203').for(:mac) }
+    it { is_expected.to allow_value('0800-2B01-0203').for(:mac) }
+    it { is_expected.to allow_value('0800 2b01 0203').for(:mac) }
+    it { is_expected.to allow_value('08002b010203').for(:mac) }
+  end
 
-  # Mixed Separators
-  it { should_not allow_value('08-00:2b:01:02:03').for(:mac) }
-  it { should_not allow_value('08.00:2b:01:02:03').for(:mac) }
-  it { should_not allow_value('08 00:2b:01:02:03').for(:mac) }
-  it { should_not allow_value('0800-2b01:0203').for(:mac) }
-  it { should_not allow_value('0800 2B01:0203').for(:mac) }
+  context 'when MAC-address uses different separators' do
+    it { is_expected.not_to allow_value('08-00:2b:01:02:03').for(:mac) }
+    it { is_expected.not_to allow_value('08.00:2b:01:02:03').for(:mac) }
+    it { is_expected.not_to allow_value('08 00:2b:01:02:03').for(:mac) }
+    it { is_expected.not_to allow_value('0800-2b01:0203').for(:mac) }
+    it { is_expected.not_to allow_value('0800 2B01:0203').for(:mac) }
+  end
 
-  # Too Short
-  it { should_not allow_value('08:00:2b:01:02').for(:mac) }
-  it { should_not allow_value('08-00-2B-01-02').for(:mac) }
+  context 'when MAC-address is too short' do
+    it { is_expected.not_to allow_value('08:00:2b:01:02').for(:mac) }
+    it { is_expected.not_to allow_value('08-00-2B-01-02').for(:mac) }
+  end
 
-  # Too Long
-  it { should_not allow_value('08:00:2b:01:02:03:04').for(:mac) }
+  context 'when MAC-address is too long' do
+    it { is_expected.not_to allow_value('08:00:2b:01:02:03:04').for(:mac) }
+  end
 
-  # Non-Hex Characters
-  it { should_not allow_value('qq:00:00:00:00:00').for(:mac) }
+  context 'when MAC-address includes non-hex digits' do
+    it { is_expected.not_to allow_value('qq:00:00:00:00:00').for(:mac) }
+  end
 
-  it { should_not allow_value('invalid').for(:mac) }
+  it { is_expected.not_to allow_value('invalid').for(:mac) }
 end

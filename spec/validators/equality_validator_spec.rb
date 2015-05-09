@@ -12,8 +12,8 @@ describe EqualityValidator do
       end
     end
 
-    it { should allow_value('MOW').for(:origin) }
-    it { should_not allow_value('NYC').for(:origin) }
+    it { is_expected.to allow_value('MOW').for(:origin) }
+    it { is_expected.not_to allow_value('NYC').for(:origin) }
   end
 
   describe do

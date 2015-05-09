@@ -11,14 +11,14 @@ describe LongitudeValidator do
 
   subject { klass.new }
 
-  it { should allow_value(-180).for(:lon) }
-  it { should allow_value(180).for(:lon) }
-  it { should allow_value(0).for(:lon) }
-  it { should allow_value(9.33).for(:lon) }
+  it { is_expected.to allow_value(-180).for(:lon) }
+  it { is_expected.to allow_value(180).for(:lon) }
+  it { is_expected.to allow_value(0).for(:lon) }
+  it { is_expected.to allow_value(9.33).for(:lon) }
 
-  it { should_not allow_value(-181.1).for(:lon) }
-  it { should_not allow_value(181.1).for(:lon) }
+  it { is_expected.not_to allow_value(-181.1).for(:lon) }
+  it { is_expected.not_to allow_value(181.1).for(:lon) }
 
-  it { should_not allow_value(nil).for(:lon) }
-  it { should_not allow_value('').for(:lon) }
+  it { is_expected.not_to allow_value(nil).for(:lon) }
+  it { is_expected.not_to allow_value('').for(:lon) }
 end

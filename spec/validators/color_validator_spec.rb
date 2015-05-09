@@ -11,9 +11,9 @@ describe ColorValidator do
 
   subject { klass.new }
 
-  it { should allow_value('#000000').for(:color) }
-  it { should allow_value('#ab00FF').for(:color) }
+  it { is_expected.to allow_value('#000000').for(:color) }
+  it { is_expected.to allow_value('#ab00FF').for(:color) }
 
-  it { should_not allow_value('kk').for(:color) }
-  it { should_not allow_value(0).for(:color) }
+  it { is_expected.not_to allow_value('color').for(:color) }
+  it { is_expected.not_to allow_value(0).for(:color) }
 end

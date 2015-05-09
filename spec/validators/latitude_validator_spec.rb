@@ -11,14 +11,14 @@ describe LatitudeValidator do
 
   subject { klass.new }
 
-  it { should allow_value(-90).for(:lat) }
-  it { should allow_value(90).for(:lat) }
-  it { should allow_value(0).for(:lat) }
-  it { should allow_value(9.33).for(:lat) }
+  it { is_expected.to allow_value(-90).for(:lat) }
+  it { is_expected.to allow_value(90).for(:lat) }
+  it { is_expected.to allow_value(0).for(:lat) }
+  it { is_expected.to allow_value(9.33).for(:lat) }
 
-  it { should_not allow_value(-90.1).for(:lat) }
-  it { should_not allow_value(90.1).for(:lat) }
+  it { is_expected.not_to allow_value(-90.1).for(:lat) }
+  it { is_expected.not_to allow_value(90.1).for(:lat) }
 
-  it { should_not allow_value(nil).for(:lat) }
-  it { should_not allow_value('').for(:lat) }
+  it { is_expected.not_to allow_value(nil).for(:lat) }
+  it { is_expected.not_to allow_value('').for(:lat) }
 end

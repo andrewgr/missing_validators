@@ -16,7 +16,8 @@ class ImeiValidator < BaseValidator
   end
 
   def validate_luhn_checksum(numbers)
-    sum, i = 0, 0
+    sum = 0
+    i = 0
 
     numbers.each_char do |ch|
       n = ch.to_i

@@ -12,8 +12,8 @@ describe InequalityValidator do
       end
     end
 
-    it { should allow_value('valid value').for(:attr) }
-    it { should_not allow_value('invalid value').for(:attr) }
+    it { is_expected.to allow_value('valid value').for(:attr) }
+    it { is_expected.not_to allow_value('invalid value').for(:attr) }
   end
 
   describe do

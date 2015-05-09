@@ -12,12 +12,12 @@ describe EmailValidator do
       end
     end
 
-    it { should allow_value('super.user@example.com').for(:email) }
-    it { should allow_value('super+user@example.com').for(:email) }
-    it { should_not allow_value('user_example.com').for(:email) }
+    it { is_expected.to allow_value('super.user@example.com').for(:email) }
+    it { is_expected.to allow_value('super+user@example.com').for(:email) }
+    it { is_expected.not_to allow_value('user_example.com').for(:email) }
 
-    it { should ensure_valid_email_format_of(:email) }
-    it { should_not ensure_valid_email_format_of(:name) }
+    it { is_expected.to ensure_valid_email_format_of(:email) }
+    it { is_expected.not_to ensure_valid_email_format_of(:name) }
   end
 
   context 'email must be in the specific domain' do
@@ -30,8 +30,8 @@ describe EmailValidator do
         end
       end
 
-      it { should allow_value('user@example.edu').for(:email) }
-      it { should allow_value('user@example.com').for(:email) }
+      it { is_expected.to allow_value('user@example.edu').for(:email) }
+      it { is_expected.to allow_value('user@example.com').for(:email) }
     end
 
     context 'email domain is specified as string' do
@@ -43,8 +43,8 @@ describe EmailValidator do
         end
       end
 
-      it { should allow_value('user@example.edu').for(:email) }
-      it { should_not allow_value('user@example.com').for(:email) }
+      it { is_expected.to allow_value('user@example.edu').for(:email) }
+      it { is_expected.not_to allow_value('user@example.com').for(:email) }
     end
 
     context 'email domains are specified as an array of strings and symbols' do
@@ -52,18 +52,16 @@ describe EmailValidator do
         Class.new do
           include ActiveModel::Validations
           attr_accessor :email, :name
-          validates :email, email: {
-            domain: ['.com', '.edu', '.Com.Au', 'example.org']
-          }
+          validates :email, email: { domain: %w(.com .edu .Com.Au example.org) }
         end
       end
 
-      it { should allow_value('user@example.com').for(:email) }
-      it { should allow_value('user@example.edu').for(:email) }
-      it { should allow_value('user@example.org').for(:email) }
-      it { should allow_value('user@example.com.au').for(:email) }
-      it { should allow_value('user@example.Com.Au').for(:email) }
-      it { should_not allow_value('user@example.net').for(:email) }
+      it { is_expected.to allow_value('user@example.com').for(:email) }
+      it { is_expected.to allow_value('user@example.edu').for(:email) }
+      it { is_expected.to allow_value('user@example.org').for(:email) }
+      it { is_expected.to allow_value('user@example.com.au').for(:email) }
+      it { is_expected.to allow_value('user@example.Com.Au').for(:email) }
+      it { is_expected.not_to allow_value('user@example.net').for(:email) }
     end
   end
 end
