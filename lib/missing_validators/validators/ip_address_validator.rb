@@ -5,7 +5,7 @@
 #     attr_accessor :ip
 #     validates :ip, ip_address: true
 #   end
-class IPAddressValidator < BaseValidator
+class IpAddressValidator < BaseValidator
   private
 
   IP_ADDRESS_FORMATS = [
