@@ -141,6 +141,33 @@ RSpec matcher is also available for your convenience:
       it { should ensure_valid_mac_address_format_of }
     end
 
+### IpAddressValidator
+
+Ensures that IP address is in the correct format:
+
+    '192.168.0.10'
+
+With an ActiveRecord model:
+
+    class Host < ActiveRecord::Base
+      attr_accessor :ip
+      validates :ip, ip_address: true
+    end
+
+Or any ruby class:
+
+    class Host
+      include ActiveModel::Validations
+      attr_accessor :ip
+      validates :ip, ip_address: true
+    end
+
+RSpec matcher is also available for your convenience:
+
+    describe Host do
+      it { should ensure_valid_ip_address_format_of }
+    end
+
 ### ColorValidator
 
 Ensures that the color is a hexadecimal value starting with '#':
