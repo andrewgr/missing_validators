@@ -9,7 +9,7 @@ class IpAddressValidator < BaseValidator
   private
 
   IP_ADDRESS_FORMATS = [
-    /^([0-9]{1,3}\.){3}\.[0-9]/   # 192.168.0.10
+    /^([0-9]{1,3}\.){3}[0-9]{1,3}/   # 192.168.0.10
   ]
 
   def valid?(ip_address, _)
