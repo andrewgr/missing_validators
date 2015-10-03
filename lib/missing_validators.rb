@@ -11,6 +11,9 @@ require 'missing_validators/validators/longitude_validator'
 require 'missing_validators/validators/latitude_validator'
 require 'missing_validators/validators/color_validator'
 require 'missing_validators/validators/imei_validator'
+require 'missing_validators/validators/ein_validator'
+require 'missing_validators/validators/ssn_validator'
+require 'missing_validators/validators/zip_code_validator'
 
 if defined?(RSpec)
   require 'rspec/matchers'
