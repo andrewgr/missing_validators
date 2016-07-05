@@ -21,3 +21,9 @@ en:
       ensure_valid_mac_address_format_of:
         failure_message_for_should: "#{model} should ensure valid MAC address format of attribute #{attr}"
         failure_message_for_should_not: "#{model} should not ensure valid MAC address format of attribute #{attr}"
+      ensure_valid_latitude_format_of:
+        failure_message_for_should: "#{model} should ensure valid latitude format of attribute #{attr}"
+        failure_message_for_should_not: "#{model} should not ensure valid latitude format of attribute #{attr}"
+      ensure_valid_longitude_format_of:
+        failure_message_for_should: "#{model} should ensure valid longitude format of attribute #{attr}"
+        failure_message_for_should_not: "#{model} should not ensure valid longitude format of attribute #{attr}"
