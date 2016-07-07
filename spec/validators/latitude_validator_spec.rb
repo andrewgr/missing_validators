@@ -4,7 +4,7 @@ describe LatitudeValidator do
   let(:klass) do
     Class.new do
       include ActiveModel::Validations
-      attr_accessor :lat
+      attr_accessor :lat, :name
       validates :lat, latitude: true
     end
   end
@@ -21,4 +21,7 @@ describe LatitudeValidator do
 
   it { is_expected.not_to allow_value(nil).for(:lat) }
   it { is_expected.not_to allow_value('').for(:lat) }
+
+  it { is_expected.to ensure_valid_latitude_format_of(:lat) }
+  it { is_expected.to_not ensure_valid_latitude_format_of(:name) }
 end

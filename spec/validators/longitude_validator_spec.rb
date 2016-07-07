@@ -4,7 +4,7 @@ describe LongitudeValidator do
   let(:klass) do
     Class.new do
       include ActiveModel::Validations
-      attr_accessor :lon
+      attr_accessor :lon, :name
       validates :lon, longitude: true
     end
   end
@@ -21,4 +21,7 @@ describe LongitudeValidator do
 
   it { is_expected.not_to allow_value(nil).for(:lon) }
   it { is_expected.not_to allow_value('').for(:lon) }
+
+  it { is_expected.to ensure_valid_longitude_format_of(:lon) }
+  it { is_expected.to_not ensure_valid_longitude_format_of(:name) }
 end
