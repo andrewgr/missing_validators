@@ -138,7 +138,7 @@ Or any ruby class:
 RSpec matcher is also available for your convenience:
 
     describe Device do
-      it { should ensure_valid_mac_address_format_of }
+      it { should ensure_valid_mac_address_format_of(:mac) }
     end
 
 ### IpAddressValidator
@@ -165,7 +165,7 @@ Or any ruby class:
 RSpec matcher is also available for your convenience:
 
     describe Host do
-      it { should ensure_valid_ip_address_format_of }
+      it { should ensure_valid_ip_address_format_of(:ip) }
     end
 
 ### ColorValidator
@@ -217,7 +217,7 @@ Or any ruby class:
 RSpec matcher is also available for your convenience:
 
     describe Phone do
-      it { should ensure_valid_imei_format_of }
+      it { should ensure_valid_imei_format_of(:imei) }
     end
 
 ### LatitudeValidator
