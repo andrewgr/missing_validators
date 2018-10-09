@@ -239,7 +239,11 @@ Or any ruby class:
       validates :latitude, latitude: true
     end
 
-RSpec matcher is not available yet.
+RSpec matcher is also available for your convenience:
+
+    describe Coordinate do
+      it { should ensure_valid_latitude_format_of(:latitude) }
+    end
 
 ### LongitudeValidator
 
@@ -260,7 +264,11 @@ Or any ruby class:
       validates :longitude, longitude: true
     end
 
-RSpec matcher is not available yet.
+RSpec matcher is also available for your convenience:
+
+    describe Coordinate do
+      it { should ensure_valid_longitude_format_of(:longitude) }
+    end
 
 ## Contributing
 
