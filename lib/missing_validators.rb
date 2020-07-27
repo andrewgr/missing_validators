@@ -24,6 +24,7 @@ if defined?(RSpec)
   require 'missing_validators/matchers/ensure_valid_imei_format_of'
   require 'missing_validators/matchers/ensure_valid_latitude_format_of'
   require 'missing_validators/matchers/ensure_valid_longitude_format_of'
+  require 'missing_validators/matchers/ensure_valid_ip_address_format_of'
 end
 
 I18n.load_path << File.expand_path('../locales/en.yml', __FILE__)
